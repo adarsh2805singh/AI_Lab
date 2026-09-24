@@ -1,0 +1,55 @@
+def simple_reflex_agent(room, status):
+    if status == "Dirty":
+        return "Suck"
+    elif room == "A":
+        return "Move Right"
+    else:
+        return "Move Left"
+
+
+room = "A"
+status = {"A": "Dirty", "B": "Dirty"}
+
+for _ in range(4):
+    action = simple_reflex_agent(room, status[room])
+    print(f"Room {room}: {status[room]} -> {action}")
+
+    if action == "Suck":
+        status[room] = "Clean"
+    elif action == "Move Right":
+        room = "B"
+    elif action == "Move Left":
+        room = "A"
+
+//Goal
+
+def goal_based_agent(room, status):
+    # Goal: both rooms must be clean
+    if status["A"] == "Dirty":
+        if room == "A":
+            return "Suck"
+        return "Move Left"
+
+    if status["B"] == "Dirty":
+        if room == "B":
+            return "Suck"
+        return "Move Right"
+
+    return "Goal Achieved"
+
+
+room = "A"
+status = {"A": "Dirty", "B": "Dirty"}
+
+while status["A"] == "Dirty" or status["B"] == "Dirty":
+    action = goal_based_agent(room, status)
+    print(f"Room {room}: {status[room]} -> {action}")
+
+    if action == "Suck":
+        status[room] = "Clean"
+    elif action == "Move Right":
+        room = "B"
+    elif action == "Move Left":
+        room = "A"
+
+print("Both rooms are clean. Goal achieved!")
